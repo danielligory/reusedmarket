@@ -1,1 +1,1 @@
-practiceCode/MERN Stack Practice/Nodejs-practice/node_modules/
+practiceCode/MERN_Stack_Practice/Nodejs-practice/node_modules/
