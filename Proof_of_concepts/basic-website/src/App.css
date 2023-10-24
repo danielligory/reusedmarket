@@ -1,0 +1,30 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: 0;
+}
+
+.app {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: fff;
+    box-shadow: 0 0 10px rgba(0,0,0, 0.1);
+}
+
+.app-header {
+    background-color: lightcoral;
+    color: white;
+    padding: 20px 0;
+    text-align: center;
+}
+
+.app-header nav {
+    margin-top: 20px;
+}
+
+.header-list {
+    list-style: none;
+    padding: 0;
+}

@@ -2,11 +2,11 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-        <header className="App-header">
+    <div className="app">
+        <header className="app-header">
           RHUL Blog Post
         <nav>
-          <ul>
+          <ul className ="header-list">
             <li><a href='/'>Home</a></li>
             <li><a href='/features'>Features</a></li>
             <li><a href='/galleries'>Galleries</a></li>
@@ -16,7 +16,7 @@ function App() {
       </header>
 
       <main>
-        <section ClassName = "blog-post">
+        <section className = "blog-post">
           <h2> Blog Post Title </h2>
           <p> Published by John Wick on Janurary 15, 2023 </p>
           <p>
