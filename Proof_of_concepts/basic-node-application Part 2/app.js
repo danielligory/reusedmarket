@@ -1,5 +1,6 @@
 // import http module
 const http = require('http');
+const path = require('path');
 const url = require('url');
 
 // const server = http.createServer((req, res) => {
@@ -10,16 +11,16 @@ const url = require('url');
 
 const router = (req, res) => {
   const parsedURL = url.parse(req.url, true);
-  const pathName = parsedURL.pathName;
+  const pathname = parsedURL.pathname;
 
   //different path names
-  if (pathName === '/') {
+  if (pathname === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain'});
     res.end('Hello World!\n');
-  } else if (pathName ==='/about') {
+  } else if (pathname ==='/about') {
     res.writeHead(200, { 'Content-Type': 'text/plain'});
     res.end('About us\n');
-  } else if (pathName ==='/contact') {
+  } else if (pathname ==='/contact') {
     res.writeHead(200, { 'Content-Type': 'text/plain'});
     res.end('Contact us\n');
   } else {
