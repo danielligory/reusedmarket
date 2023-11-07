@@ -1,0 +1,50 @@
+/* NavBar */
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  background-color: #DC143C;
+}
+
+.logo {
+  padding: 20px 0px 25px 25px;
+}
+.logo a{
+  text-decoration: none;
+  color: white;
+  font-size: 24px;
+}
+
+.nav-links ul{
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 25px;
+}
+
+.nav-links li {
+  margin-right: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+}
+
+.search-bar input {
+  padding: 5px 300px 5px 15px;
+  border: none;
+  border-radius: 5px;
+  margin-top: 25px;
+}
+
+.user-actions {
+  margin-right: 25px;
+}
+
+.user-actions button {
+  margin: 30px 5px 30px 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
