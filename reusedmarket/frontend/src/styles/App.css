@@ -48,3 +48,8 @@
   border-radius: 5px;
   cursor: pointer;
 }
+
+.product-list {
+  display: flex;
+  margin: 20px 5px 20px 5px;
+}
