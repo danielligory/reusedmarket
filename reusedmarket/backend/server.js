@@ -1,20 +1,26 @@
 const express = require('express');
 const server = express();
-const mongoose = require('./db');
-//const productList = require('./productList');
+const client = require('./db');
 
 server.use(express.json());
 
-server.get('/productList', async (req, res) => {
+// Route to get Products from reUsedMarket database
+server.get('/products', async (req, res) => {
   try {
-    const products = await productList.find({});
-    res.json(productList);
-  } catch (err) {
-    res.status(500).json({ messgae: err.message})
-  }
-})
+    const database = client.db('onlinestore');
+    const collection = database.collection('products');
 
-const port = process.env.PORT || 5000;
+    const result = await collection.find({}).toArray();
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+
+const port = process.env.PORT || 5001;
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });

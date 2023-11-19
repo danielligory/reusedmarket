@@ -1,14 +1,15 @@
-const mongoose = require('mongoose');
+const { MongoClient } = require('mongodb');
+
 const dbURL = 'mongodb+srv://zjac296:GS75dkcUcYv2Em@reusedmarket.sczrldh.mongodb.net/?retryWrites=true&w=majority'
 
-mongoose.connect(dbURL, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+const client = new MongoClient(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
-const db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.once('open', () => {
+client.connect()
+.then(() => {
   console.log('Connected to MongoDB');
+})
+.catch(error => {
+  console.error('MongoDB connection error: ', error);
 });
+
+module.exports = client;
