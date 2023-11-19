@@ -1,8 +1,16 @@
 const express = require('express');
 const server = express();
 const client = require('./db');
+const cors = require('cors');
+
+const corsProductList = {
+  origin: 'http://localhost:5001/products',
+};
+
+server.use(cors());
 
 server.use(express.json());
+
 
 // Route to get Products from reUsedMarket database
 server.get('/products', async (req, res) => {
