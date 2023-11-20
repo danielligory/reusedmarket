@@ -4,7 +4,7 @@ const client = require('./db');
 const cors = require('cors');
 
 const corsProductList = {
-  origin: 'http://localhost:5001/products',
+  origin: 'http://localhost:5000/products',
 };
 
 server.use(cors());
@@ -28,7 +28,7 @@ server.get('/products', async (req, res) => {
 });
 
 
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5000;
 server.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
