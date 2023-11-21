@@ -47,7 +47,30 @@ server.post('/register', async (req, res) => {
   }
 });
 
+server.post('/login', async (req,res) => {
+  try {
+    const { email, password} = req.body;
 
+    const database = client.db('onlinestore');
+    const collection = database.collection ('users');
+
+    const user = await collection.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json( { message: 'Invalid Username or Password'});
+    }
+
+    if (password === user.password) {
+      res.status(200).json({ message: 'Login successful' });
+    } else {
+      res.status(404).json({ message: 'Invalid Username or Password'})
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+
+});
 
 const port = process.env.PORT || 5001;
 server.listen(port, () => {
