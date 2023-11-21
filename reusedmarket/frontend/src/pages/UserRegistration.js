@@ -17,7 +17,7 @@ const UserRegistration = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('../../../backend/routes/userRoutes', formData);
+            const response = await axios.post('http://localhost:5001/register', formData);
             console.log(response.data);
         } catch (error) {
             console.error(error.response.data);

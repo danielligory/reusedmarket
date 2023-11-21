@@ -7,7 +7,7 @@ const ProductList = () => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/products') //this needs to be changed
+    fetch('http://localhost:5001/products') //this needs to be changed
       .then(response => response.json())
       .then(result => {
         setProducts(result);
