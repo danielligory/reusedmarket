@@ -16,8 +16,10 @@ const UserLogin = () => {
         try {
             const response = await axios.post('http://localhost:5001/login', formData);
             console.log(response.data);
+            window.alert('Login Successful');
         } catch (error) {
             console.error(error.response.data);
+            window.alert('Login Failed. Please try again');
         }
     };
 
