@@ -31,10 +31,6 @@ server.post('/register', async (req, res) => {
   try {
     const { username, email, password } = req.body;
 
-    // Check if the user exists or perform other necessary validations
-    // If validations pass, proceed to save the user to the database
-
-    // Example: Save user to database
     const database = client.db('onlinestore');
     const collection = database.collection('users');
 
