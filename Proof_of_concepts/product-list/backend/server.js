@@ -1,9 +1,11 @@
 const express = require('express');
 const { MongoClient, ObjectId } = require('mongodb');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const server = express();
 server.use(bodyParser.json());
+server.use(cors());
 
 const URI = 'mongodb+srv://zjac296:GS75dkcUcYv2Em@reusedmarket.sczrldh.mongodb.net/';
 const client = new MongoClient(URI);
@@ -16,7 +18,7 @@ client.connect(err => {
         return;
     }
     console.log('Connected to database');
-    database = client.db('store');
+    database = client.db('testonlinestore');
 });
 
 // Creating new product
