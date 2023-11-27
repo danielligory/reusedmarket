@@ -1,6 +1,7 @@
 const express = require ('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 const { MongoClient } = require('mongodb');
 
 const app = express ();
@@ -9,6 +10,7 @@ const mongoURI = 'mongodb+srv://zjac296:GS75dkcUcYv2Em@reusedmarket.sczrldh.mong
 const client = new MongoClient(mongoURI);
 
 app.use(express.json());
+app.use(cors());
 
 client.connect().then(() => {
     const db = client.db('testonlinestore');
