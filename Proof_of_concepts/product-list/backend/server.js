@@ -31,7 +31,7 @@ server.post('/products', async (req, res) => {
 });
 
 // Update product by ID
-server.update('/products/:id', async (req,res) => {
+server.patch('/products/:id', async (req,res) => {
     try {
         const collection = database.collection('products');
         const { id } = req.params;
