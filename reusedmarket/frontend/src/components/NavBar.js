@@ -1,27 +1,41 @@
 import React from 'react';
 import '../styles/App.css';
+import { Link } from 'react-router-dom';
 
 function NavBar() {
   return (
     <nav>
       <div className ='navbar-container'>
         <div className = 'logo'>
-          <a href='/'>ReUsedMarket</a>
+          <Link to='/'>ReUsedMarket</Link>
         </div>
         <div className='nav-links'>
           <ul>
-            <li><a href='/gaming'>Gaming</a></li>
-            <li><a href='/phone'>Phone</a></li>
-            <li><a href='/electronics'>Electronics</a></li>
-            <li><a href='/about'>About us</a></li>
+            <li>
+              <Link to='/gaming'>Gaming</Link>
+            </li>
+            <li>
+              <Link to='/phone'>Phone</Link>
+            </li>
+            <li>
+              <Link to='/electronics'>Electronics</Link>
+            </li>
+            <li>
+              <Link to='/about'>About us</Link>
+            </li>
           </ul>
         </div>
         <div className='search-bar'>
           <input type='text' placeholder ='Search'/>
         </div>
         <div className='user-actions'>
-          <button type ='button'>Login</button>
-          <button type ='button'>Basket</button>
+          <Link to='/login'>
+            <button>Login</button>
+          </Link>
+          <Link to='/register'>
+            <button>Register</button>
+          </Link>
+          <button type='button'>Basket</button>
         </div>
       </div>
     </nav>
