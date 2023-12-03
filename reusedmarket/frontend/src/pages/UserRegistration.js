@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import '../styles/Authentication.css';
 
 const UserRegistration = () => {
     const [formData, setFormData] = useState({
@@ -28,6 +29,7 @@ const UserRegistration = () => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <p>Registration Page</p>
             <input 
                 type = 'text'
                 name = 'username'
