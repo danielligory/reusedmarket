@@ -3,10 +3,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
 const { MongoClient } = require('mongodb');
+require('dotenv').config();
 
 const app = express ();
-// NEED TO CHANGE PASSWORD
-const mongoURI = 'mongodb+srv://zjac296:GS75dkcUcYv2Em@reusedmarket.sczrldh.mongodb.net/';
+
+const dbUser = process.env.DB_USER; // Use DB_USER from .env
+const dbPassword = process.env.DB_PASSWORD; // Use DB_PASSWORD from .env
+
+const mongoURI = `mongodb+srv://${dbUser}:${dbPassword}@reusedmarket.sczrldh.mongodb.net/`;
 const client = new MongoClient(mongoURI);
 
 app.use(express.json());
@@ -50,6 +54,7 @@ client.connect().then(() => {
         }
     });
 
+// Port that server listens to
     app.listen(3001, () => {
         console.log('Server is running on port 3001');
     });
