@@ -3,17 +3,12 @@ const http = require('http');
 const path = require('path');
 const url = require('url');
 
-// const server = http.createServer((req, res) => {
-//   res.writeHead(200, { 'Content-Type': 'text/plain'});
-
-//   res.end('Hello World!\n');
-// });
 
 const router = (req, res) => {
   const parsedURL = url.parse(req.url, true);
   const pathname = parsedURL.pathname;
 
-  //different path names
+  // Different path names
   if (pathname === '/') {
     res.writeHead(200, { 'Content-Type': 'text/plain'});
     res.end('Hello World!\n');
@@ -33,6 +28,7 @@ const server = http.createServer((req, res) => {
   router(req, res);
 });
 
+// Port that server listens to
 const port = 3000;
 server.listen(port, () => {
   console.log(`Hosting on Port: ${port}`);
