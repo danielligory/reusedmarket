@@ -1,5 +1,38 @@
-# Final Year Project
+# Advanced Web Development - ReUsedMarket
 
-This repository has been created to store your final year project.
+**Environment variables:**
 
-You may edit it as you like, but please do not remove the default topics or the project members list. These need to stay as currently defined in order for your supervisor to be able to find your project.
+DB_USER: marker
+DB_PASSWORD: WiBht0IABlcxXQBO
+
+For each file that has an .env file:
+ - reusedmarket/backend
+ - Proof_of_concepts/backend/product-list
+ - Proof_of_concepts/backend/user-authentication
+
+Project Overview
+
+This project aims to develop a full-stack web application known as ReUsedMarket, focusing on an online store platform where users can buy and sell items. It's designed using the MERN stack.
+
+**Installation**
+
+Install Node:
+
+https://nodejs.org/en/download
+
+**Run**
+
+Backend
+1. npm i
+2. node server.js
+
+Frontend
+1. npm i
+2. npm start
+
+
+
+
+
+
+
