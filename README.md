@@ -15,21 +15,21 @@ For each file that has an .env file:
 
 This project aims to develop a full-stack web application known as ReUsedMarket, focusing on an online store platform where users can buy and sell items. It's designed using the MERN stack.
 
-**Installation**
+** Usage Instructions**
 
-Install Node:
+1. Install Node.js if not already installed: https://nodejs.org/
+2. Clone or download this repository to your local machine.
+3. Navigate to the project directory using the terminal or command prompt.
+4. Run the following command to start the server:
 
-https://nodejs.org/en/download
+    Backend
+    1. `npm i`
+    2. `node server.js`
 
-**Run**
+    Frontend
+    1. `npm i`
+    2. `npm start`
 
-Backend
-1. `npm i`
-2. `node server.js`
-
-Frontend
-1. `npm i`
-2. `npm start`
 
 **Additional information about files**
 
