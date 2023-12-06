@@ -15,7 +15,7 @@ For each file that has an .env file:
 
 This project aims to develop a full-stack web application known as ReUsedMarket, focusing on an online store platform where users can buy and sell items. It's designed using the MERN stack.
 
-** Usage Instructions**
+**Usage Instructions**
 
 1. Install Node.js if not already installed: https://nodejs.org/
 2. Clone or download this repository to your local machine.
@@ -34,7 +34,9 @@ This project aims to develop a full-stack web application known as ReUsedMarket,
 **Additional information about files**
 
 /practiceCode is personal tutorials I have done following youtube tutorials
+
 /proofOfConcepts contains different proof of concepts
+
 /reusedmarket contains the prototype of the project. This is the current main program
 
 
