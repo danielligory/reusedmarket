@@ -17,18 +17,13 @@ This project aims to develop a full-stack web application known as ReUsedMarket,
 
 ** Usage Instructions**
 
-1. Install Node.js if not already installed: https://nodejs.org/
+Usage Instructions:
+1. Ensure Node.js and MongoDB are installed: https://nodejs.org/ and https://www.mongodb.com/
 2. Clone or download this repository to your local machine.
-3. Navigate to the project directory using the terminal or command prompt.
-4. Run the following command to start the server:
-
-    Backend
-    1. `npm i`
-    2. `node server.js`
-
-    Frontend
-    1. `npm i`
-    2. `npm start`
+3. Navigate to both the frontend (React) and backend (Node.js) directories separately using the terminal or command prompt.
+4. Run `npm i` in both directories to install the necessary dependencies.
+5. Start the backend server by navigating to the backend directory and running `node server.js`.
+7. Start the frontend by navigating to the frontend directory and running `npm start`.
 
 
 **Additional information about files**
