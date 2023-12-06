@@ -8,8 +8,8 @@ DB_PASSWORD: `WiBht0IABlcxXQBO`
 
 For each file that has an .env file:
  - reusedmarket/backend
- - Proof_of_concepts/backend/product-list
- - Proof_of_concepts/backend/user-authentication
+ - proofOfConcept/backend/product-list
+ - proofOfConcept/backend/user-authentication
 
 **Project Overview**
 
@@ -30,6 +30,12 @@ Backend
 Frontend
 1. `npm i`
 2. `npm start`
+
+**Additional information about files**
+
+/practiceCode is personal tutorials I have done following youtube tutorials
+/proofOfConcepts contains different proof of concepts
+/reusedmarket contains the prototype of the project. This is the current main program
 
 
 
