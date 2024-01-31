@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "name": "Gaming Console X",
+    "description": "High-performance gaming console for immersive gaming experience.",
+    "price": 399.99,
+    "imageURL": "gaming_console_x.jpg",
+    "quantity": 50,
+    "category": "Gaming"
+  },
+  {
+    "id": 2,
+    "name": "Phone Model Y",
+    "description": "Smartphone with advanced features and cutting-edge technology.",
+    "price": 799.99,
+    "imageURL": "phone_model_y.jpg",
+    "quantity": 100,
+    "category": "Phone"
+  },
+  {
+    "id": 3,
+    "name": "Laptop Z",
+    "description": "Powerful laptop for productivity and entertainment purposes.",
+    "price": 1299.99,
+    "imageURL": "laptop_z.jpg",
+    "quantity": 30,
+    "category": "Electronics"
+  },
+  {
+    "id": 4,
+    "name": "Gaming Mouse A",
+    "description": "High-precision gaming mouse with customizable buttons.",
+    "price": 49.99,
+    "imageURL": "gaming_mouse_a.jpg",
+    "quantity": 75,
+    "category": "Gaming"
+  },
+  {
+    "id": 5,
+    "name": "Smartwatch B",
+    "description": "Feature-rich smartwatch for fitness tracking and notifications.",
+    "price": 149.99,
+    "imageURL": "smartwatch_b.jpg",
+    "quantity": 60,
+    "category": "Electronics"
+  },
+  {
+    "id": 6,
+    "name": "Phone Model X",
+    "description": "Sleek and stylish smartphone with a powerful camera.",
+    "price": 899.99,
+    "imageURL": "phone_model_x.jpg",
+    "quantity": 80,
+    "category": "Phone"
+  }
+]
