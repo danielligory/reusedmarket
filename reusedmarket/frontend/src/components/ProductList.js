@@ -10,7 +10,7 @@ const ProductList = ({ title }) => {
     fetch('http://localhost:5001/products')
       .then(response => response.json())
       .then(result => {
-        const filteredProducts = result.filter(product => product.category.toLowerCase() === title.toLowerCase());
+        const filteredProducts = result.filter(product => product.category.includes(title));
         setProducts(filteredProducts);
       })
       .catch(error => {
