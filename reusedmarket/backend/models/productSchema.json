@@ -6,7 +6,7 @@
     "price": 399.99,
     "imageURL": "gaming_console_x.jpg",
     "quantity": 50,
-    "category": "Gaming"
+    "category": ["Gaming", "Suggested"]
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "price": 799.99,
     "imageURL": "phone_model_y.jpg",
     "quantity": 100,
-    "category": "Phone"
+    "category": ["Phone"]
   },
   {
     "id": 3,
@@ -24,7 +24,7 @@
     "price": 1299.99,
     "imageURL": "laptop_z.jpg",
     "quantity": 30,
-    "category": "Electronics"
+    "category": ["Electronics"]
   },
   {
     "id": 4,
@@ -33,7 +33,7 @@
     "price": 49.99,
     "imageURL": "gaming_mouse_a.jpg",
     "quantity": 75,
-    "category": "Gaming"
+    "category": ["Gaming"]
   },
   {
     "id": 5,
@@ -42,7 +42,7 @@
     "price": 149.99,
     "imageURL": "smartwatch_b.jpg",
     "quantity": 60,
-    "category": "Electronics"
+    "category": ["Electronics", "Suggested"]
   },
   {
     "id": 6,
@@ -51,6 +51,87 @@
     "price": 899.99,
     "imageURL": "phone_model_x.jpg",
     "quantity": 80,
-    "category": "Phone"
+    "category": ["Phone", "Suggested"]
+  },
+  {
+    "id": 7,
+    "name": "Wireless Headphones",
+    "description": "Immersive sound experience with noise cancellation.",
+    "price": 129.99,
+    "imageURL": "wireless_headphones.jpg",
+    "quantity": 40,
+    "category": ["Electronics", "Suggested"]
+  },
+  {
+    "id": 8,
+    "name": "Gaming Keyboard",
+    "description": "Mechanical keyboard with RGB lighting for gaming enthusiasts.",
+    "price": 79.99,
+    "imageURL": "gaming_keyboard.jpg",
+    "quantity": 25,
+    "category": ["Gaming"]
+  },
+  {
+    "id": 9,
+    "name": "Smart Home Camera",
+    "description": "Security camera for monitoring your home remotely.",
+    "price": 149.99,
+    "imageURL": "smart_home_camera.jpg",
+    "quantity": 35,
+    "category": ["Electronics", "Suggested"]
+  },
+  {
+    "id": 10,
+    "name": "Fitness Tracker",
+    "description": "Track your fitness activities and monitor health metrics.",
+    "price": 69.99,
+    "imageURL": "fitness_tracker.jpg",
+    "quantity": 50,
+    "category": ["Fitness", "Suggested"]
+  },
+  {
+    "id": 11,
+    "name": "Laptop Stand",
+    "description": "Adjustable laptop stand for ergonomic use.",
+    "price": 29.99,
+    "imageURL": "laptop_stand.jpg",
+    "quantity": 20,
+    "category": ["Accessories"]
+  },
+  {
+    "id": 12,
+    "name": "Bluetooth Speaker",
+    "description": "Portable Bluetooth speaker with high-quality audio.",
+    "price": 59.99,
+    "imageURL": "bluetooth_speaker.jpg",
+    "quantity": 30,
+    "category": ["Electronics", "Suggested"]
+  },
+  {
+    "id": 13,
+    "name": "Coffee Maker",
+    "description": "Automatic drip coffee maker with programmable features.",
+    "price": 89.99,
+    "imageURL": "coffee_maker.jpg",
+    "quantity": 15,
+    "category": ["Electronic", "Suggested"]
+  },
+  {
+    "id": 14,
+    "name": "Wireless Mouse",
+    "description": "Ergonomic wireless mouse with precision tracking.",
+    "price": 34.99,
+    "imageURL": "wireless_mouse.jpg",
+    "quantity": 40,
+    "category": ["Gaming"]
+  },
+  {
+    "id": 15,
+    "name": "Portable External Hard Drive",
+    "description": "High-capacity storage for backing up your data on the go.",
+    "price": 119.99,
+    "imageURL": "external_hard_drive.jpg",
+    "quantity": 25,
+    "category": ["Electronics", "Storage"]
   }
 ]
