@@ -3,7 +3,7 @@ import '../styles/ProductCards.css';
 import ProductCard from './ProductCard';
 import React, { useState, useEffect } from 'react';
 
-const ProductList = () => {
+const ProductList = ({ title }) => {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
@@ -18,10 +18,13 @@ const ProductList = () => {
   }, []); 
 
   return (
-    <div className='product-list'>
-      {products.map(product => (
-        <ProductCard key={product._id} product={product} />
-      ))}
+    <div className='product-list-container'>
+      <h2 className='slider-title'>{title}</h2>
+      <div className='product-list'>
+        {products.map(product => (
+          <ProductCard key={product._id} product={product} />
+        ))}
+      </div>
     </div>
   );
 };

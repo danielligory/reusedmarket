@@ -12,7 +12,9 @@ function App() {
       <div className="App">
         <NavBar/>
         <Routes>
-          <Route exact path="/" element={<ProductList />} />
+          <Route exact path="/" element={<HomePage />} />
+          <Route exact path="/gaming" element={<ProductList title="Gaming" />} />
+          <Route exact path="/electronics" element={<ProductList title="Electronics" />} />
           <Route path="/register" element={<UserRegistration />} />
           <Route path="/login" element={<UserLogin />} />
         </Routes>
@@ -21,5 +23,16 @@ function App() {
 
   );
 }
+
+const HomePage = () => {
+  return (
+    <div>
+      <ProductList title="Suggested" />
+      <ProductList title="Top Sellers" />
+      {/* Add more ProductList components with different titles as needed */}
+    </div>
+  );
+}
+
 
 export default App;
