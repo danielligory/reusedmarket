@@ -28,7 +28,7 @@ const HomePage = () => {
   return (
     <div>
       <ProductList title="Suggested" />
-      <ProductList title="Top Sellers" />
+      <ProductList title="Gaming" />
       {/* Add more ProductList components with different titles as needed */}
     </div>
   );

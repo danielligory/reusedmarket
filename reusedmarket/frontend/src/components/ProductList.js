@@ -10,7 +10,8 @@ const ProductList = ({ title }) => {
     fetch('http://localhost:5001/products')
       .then(response => response.json())
       .then(result => {
-        setProducts(result);
+        const filteredProducts = result.filter(product => product.category.toLowerCase() === title.toLowerCase());
+        setProducts(filteredProducts);
       })
       .catch(error => {
         console.error('Error fetching data:', error);
@@ -29,17 +30,5 @@ const ProductList = ({ title }) => {
   );
 };
 
-
-
-
-// const ProductList = () => {
-//   return (
-//       <div className='product-list'>
-//         {Products.map((product) => (
-//           <ProductCard key={product.id} product={product} />
-//         ))}
-//       </div>
-//   );
-// };
 
 export default ProductList;
