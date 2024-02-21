@@ -18,7 +18,7 @@ const UserRegistration = () => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:5001/register', formData);
+            const response = await axios.post('http://localhost:5001/users/register', formData);
             console.log(response.data);
             window.alert('Registration Successful');
         } catch (error) {

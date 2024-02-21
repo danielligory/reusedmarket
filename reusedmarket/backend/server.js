@@ -3,14 +3,18 @@ const server = express();
 const client = require('./db');
 const cors = require('cors');
 
-const corsProductList = {
-  origin: 'http://localhost:5001/products',
+const userRoutes = require('./routes/userRoutes');
+
+const corsOptions = {
+  origin: '*',
+
 };
 
-server.use(cors());
+server.use(cors(corsOptions));
 
 server.use(express.json());
 
+server.use('/users', userRoutes);
 
 // Route to get Products from reUsedMarket database
 server.get('/products', async (req, res) => {
@@ -27,46 +31,6 @@ server.get('/products', async (req, res) => {
   }
 });
 
-server.post('/register', async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
-
-    const database = client.db('onlinestore');
-    const collection = database.collection('users');
-
-    await collection.insertOne({ username, email, password });
-
-    res.status(201).json({ message: 'User registered successfully' });
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-server.post('/login', async (req,res) => {
-  try {
-    const { email, password} = req.body;
-
-    const database = client.db('onlinestore');
-    const collection = database.collection ('users');
-
-    const user = await collection.findOne({ email });
-
-    if (!user) {
-      return res.status(404).json( { message: 'Invalid Username or Password'});
-    }
-
-    if (password === user.password) {
-      res.status(200).json({ message: 'Login successful' });
-    } else {
-      res.status(404).json({ message: 'Invalid Username or Password'})
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-
-});
 
 const port = process.env.PORT || 5001;
 server.listen(port, () => {
