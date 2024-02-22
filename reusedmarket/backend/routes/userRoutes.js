@@ -52,8 +52,8 @@ router.post('/login', async (req, res) => {
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);
-        // Need to use hashs/salts for storing the password
-        if (passwordMatch) {
+        
+        if (!passwordMatch) {
             return res.status(404).json({ message: 'Username or Password Invalid'});
         }
 
