@@ -15,7 +15,7 @@ const UserLogin = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:5001/login', formData);
+            const response = await axios.post('http://localhost:5001/users/login', formData);
             console.log(response.data);
             window.alert('Login Successful');
         } catch (error) {

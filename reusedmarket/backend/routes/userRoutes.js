@@ -48,22 +48,23 @@ router.post('/login', async (req, res) => {
         const user = await userCollection.findOne({ email });
 
         if (!user) {
-            return res.status(404).json({ message: 'User not found'});
+            return res.status(404).json({ message: 'User not found' });
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);
         
         if (!passwordMatch) {
-            return res.status(404).json({ message: 'Username or Password Invalid'});
+            return res.status(401).json({ message: 'Invalid email or password' });
         }
 
         // Needs to be set to a JWT, THIS IS NOT FOR PRODUCTION
         req.session.loggedIn = true;
         req.session.user = user; 
 
-        res.status(200).json({ message: 'Logged in successfully'});
+        res.status(200).json({ message: 'Logged in successfully' });
     } catch (error) {
-        res.status(500).json({ message: 'Failed to log in'});
+        console.error('Error:', error);
+        res.status(500).json({ message: 'Failed to log in', error: error.message });
     }
 });
 
