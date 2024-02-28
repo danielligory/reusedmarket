@@ -7,14 +7,15 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 
 function App() {
+  const serverBaseUrl = 'http://localhost:5001';
   return (
     <Router>
       <div className="App">
-        <NavBar/>
+        <NavBar serverBaseUrl={serverBaseUrl}/>
         <Routes>
-          <Route exact path="/" element={<HomePage />} />
-          <Route exact path="/gaming" element={<ProductList title="Gaming" />} />
-          <Route exact path="/electronics" element={<ProductList title="Electronics" />} />
+          <Route exact path="/" element={<HomePage serverBaseUrl={serverBaseUrl} />} />
+          <Route exact path="/gaming" element={<ProductList title="Gaming" serverBaseUrl={serverBaseUrl} />} />
+          <Route exact path="/electronics" element={<ProductList title="Electronics" serverBaseUrl={serverBaseUrl} />} />
           <Route path="/register" element={<UserRegistration />} />
           <Route path="/login" element={<UserLogin />} />
         </Routes>
