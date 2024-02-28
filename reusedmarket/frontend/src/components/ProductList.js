@@ -5,22 +5,40 @@ import React, { useState, useEffect } from 'react';
 
 const ProductList = ({ title }) => {
   const [products, setProducts] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5001/products')
-      .then(response => response.json())
-      .then(result => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:5001/products');
+        const result = await response.json();
+
         const filteredProducts = result.filter(product => product.category.includes(title));
-        setProducts(filteredProducts);
-      })
-      .catch(error => {
+
+        const searchedProducts = filteredProducts.filter(product =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+
+        setProducts(searchedProducts);
+      } catch (error) {
         console.error('Error fetching data:', error);
-      });
-  }, []); 
+      }
+    };
+
+    fetchData();
+  }, [title, searchQuery]);
 
   return (
     <div className='product-list-container'>
       <h2 className='slider-title'>{title}</h2>
+      <div className='search-bar'>
+        <input
+          type='text'
+          placeholder='Search'
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+        />
+      </div>
       <div className='product-list'>
         {products.map(product => (
           <ProductCard key={product._id} product={product} />
