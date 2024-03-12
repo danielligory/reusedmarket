@@ -7,7 +7,8 @@ const cors = require('cors');
 const userRoutes = require('./routes/userRoutes');
 
 const corsOptions = {
-  origin: '*',
+  origin: 'http://localhost:3000',
+  credentials: true,
 
 };
 
@@ -20,10 +21,14 @@ server.use(
     secret: 'testing',
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      secure:false,
+      httpOnly: true,
+      sameSite: 'none',
+    },
   })
 );
 
-server.use('/users', userRoutes);
 
 // Route to get Products from reUsedMarket database
 server.get('/products', async (req, res) => {
@@ -40,6 +45,7 @@ server.get('/products', async (req, res) => {
   }
 });
 
+server.use('/users', userRoutes);
 
 const port = process.env.PORT || 5001;
 server.listen(port, () => {

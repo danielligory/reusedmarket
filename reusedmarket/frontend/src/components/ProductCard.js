@@ -12,11 +12,14 @@ const ProductCard = ({ product }) => {
 
   const addToBasket = async () => {
     try {
-        const result = await axios.post('http://localhost:5001/users/basket/add', {
+        const response = await axios.post('http://localhost:5001/users/basket/add', {
             productId: product._id,
             quantity,
+        }, {
+          withCredentials: true,
         });
-        console.log(result.response.data);
+
+        console.log(response.data);
         window.alert('Product added to basket');
     } catch (error) {
         console.error('Error adding product to basket:', error.response.data);

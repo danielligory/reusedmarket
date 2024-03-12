@@ -69,6 +69,8 @@ router.post('/login', async (req, res) => {
         req.session.loggedIn = true;
         req.session.user = user; 
 
+        console.log('User session', req.session.user);
+
         res.status(200).json({ message: 'Logged in successfully' });
     } catch (error) {
         console.error('Error:', error);
@@ -76,8 +78,13 @@ router.post('/login', async (req, res) => {
     }
 });
 
-router.get('/users/basket', async (req, res) => {
+router.get('/basket', async (req, res) => {
     try {
+
+        if (!req.session || !req.session.user) {
+            return res.status(401).json({ error: 'Unauthorized - User not logged in' });
+        }
+
         const user = await userCollection.findOne({ _id: ObjectID(req.session.user._id) });
         const basket = user.basket || [];
 
@@ -94,28 +101,59 @@ router.get('/users/basket', async (req, res) => {
         res.json(basketDetails);
     } catch (error) {
         console.error('Error fetching user basket:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
 
-router.post('/users/basket/add', async (req, res) => {
-    const { productId, quantity } = req.body;
+// router.post('/basket/add', async (req, res) => {
+//     const { productId, quantity } = req.body;
 
+//     try {
+//         await userCollection.updateOne(
+//             { _id: ObjectID(req.session.user._id) },
+//             { $addToSet: { basket: { productId, quantity } } }
+//         );
+
+//         // res.json({ message: 'Product added to basket' });
+//         res.status(200).json({ message: 'Product added to basket successfully' });
+//     } catch (error) {
+//         console.error('Error adding product to basket:', error);
+//         res.status(500).json({ error: 'Internal server error',  details: error.message });
+//     }
+// });
+
+router.post('/basket/add', async (req, res) => {
     try {
-        await userCollection.updateOne(
-            { _id: ObjectID(req.session.user._id) },
+        const { productId, quantity } = req.body;
+
+        if (!productId || !quantity) {
+            return res.status(400).json({ error: 'Invalid input data' });
+        }
+
+        const userId = req.session.user?._id;
+        if (!userId) {
+            return res.status(401).json({ error: 'User not authenticated' });
+        }
+
+        const result = await userCollection.updateOne(
+            { _id: ObjectID(userId) },
             { $addToSet: { basket: { productId, quantity } } }
         );
 
-        // res.json({ message: 'Product added to basket' });
-        res.status(200).json({ message: 'Product added to basket successfully' });
+        if (result.modifiedCount === 1) {
+            return res.status(200).json({ message: 'Product added to basket successfully' });
+        } else {
+            return res.status(404).json({ error: 'User not found or product not added' });
+        }
     } catch (error) {
-        console.error('Error adding product to basket:', error);
-        res.status(500).json({ error: 'Internal server error',  details: error.message });
+        console.error('Error updating basket in the database:', error);
+        res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
 
-router.put('/users/basket/update', async (req, res) => {
+
+
+router.put('/basket/update', async (req, res) => {
     const { productId, quantity } = req.body;
 
     try {
@@ -134,7 +172,7 @@ router.put('/users/basket/update', async (req, res) => {
     }
 });
 
-router.delete('/users/basket/remove', async (req, res) => {
+router.delete('/basket/remove', async (req, res) => {
     const { productId } = req.body;
 
     try {
