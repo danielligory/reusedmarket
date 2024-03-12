@@ -35,7 +35,9 @@ function NavBar() {
           <Link to='/register'>
             <button>Register</button>
           </Link>
-          <button type='button'>Basket</button>
+          <Link to='/basket'>
+            <button type='button'>Basket</button>
+          </Link>
         </div>
       </div>
     </nav>

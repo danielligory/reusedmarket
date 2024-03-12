@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import SmartTv from '../assets/productIcons/smart-tv.jpg';
+import axios from 'axios';
 
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(product.quantity);
@@ -9,6 +10,19 @@ const ProductCard = ({ product }) => {
     setQuantity(newQuantity);
   };
 
+  const addToBasket = async () => {
+    try {
+        const result = await axios.post('http://localhost:5001/users/basket/add', {
+            productId: product._id,
+            quantity,
+        });
+        console.log(result.response.data);
+        window.alert('Product added to basket');
+    } catch (error) {
+        console.error('Error adding product to basket:', error.response.data);
+        window.alert('Failed to add product to basket. Please try again.');
+    }
+};
   return (
     <div className='product-card'>
       {/* <img src={product.imageURL} alt={product.name} /> */}
@@ -21,7 +35,7 @@ const ProductCard = ({ product }) => {
         <p>{quantity}</p>
         <button onClick={() => handleQuantityChange(1)}>+</button>
       </div>
-      <button>Add to Cart</button>
+      <button onClick={addToBasket}>Add to Basket</button>
     </div>
   );
 };
