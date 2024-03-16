@@ -20,6 +20,7 @@ const UserRegistration = () => {
         try {
             const response = await axios.post('http://localhost:5001/users/register', formData);
             console.log(response.data);
+            localStorage.setItem('token', response.data.token);
             window.alert('Registration Successful');
         } catch (error) {
             console.error(error.response.data);

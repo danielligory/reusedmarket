@@ -3,6 +3,12 @@ import '../styles/App.css';
 import { Link } from 'react-router-dom';
 
 function NavBar() {
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    window.location.href = '/';
+  };
+
   return (
     <nav>
       <div className ='navbar-container'>
@@ -38,6 +44,7 @@ function NavBar() {
           <Link to='/basket'>
             <button type='button'>Basket</button>
           </Link>
+          <button onClick = {handleLogout}>Logout</button>
         </div>
       </div>
     </nav>

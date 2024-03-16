@@ -8,7 +8,11 @@ const Basket = () => {
 
     const fetchBasket = async () => {
         try {
-            const response = await axios.get('http://localhost:5001/users/basket');
+            const response = await axios.get('http://localhost:5001/users/basket', {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            });
             setBasket(response.data);
         } catch (error) {
             console.error('Error fetching basket:', error);
@@ -21,7 +25,14 @@ const Basket = () => {
 
     const handleUpdateQuantity = async (productId, newQuantity) => {
         try {
-            await axios.put('http://localhost:5001/users/basket/update', { productId, quantity: newQuantity });
+            await axios.put('http://localhost:5001/users/basket/update', 
+            { productId, quantity: newQuantity },
+            {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`,
+                },
+            }
+            );
             fetchBasket();
         } catch (error) {
             console.error('Error updating quantity:', error);
@@ -30,7 +41,13 @@ const Basket = () => {
 
     const handleRemoveProduct = async (productId) => {
         try {
-            await axios.delete(`http://localhost:5001/users/basket/remove/${productId}`);
+            await axios.delete(`http://localhost:5001/users/basket/remove/${productId}`, 
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }
+            );
             fetchBasket();
         } catch (error) {
             console.error('Error removing product:', error);

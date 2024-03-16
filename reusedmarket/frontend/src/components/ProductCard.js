@@ -16,7 +16,9 @@ const ProductCard = ({ product }) => {
             productId: product._id,
             quantity,
         }, {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
         });
 
         console.log(response.data);
