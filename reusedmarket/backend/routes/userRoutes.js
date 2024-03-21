@@ -41,7 +41,7 @@ router.post('/register', async (req,res) => {
             email, 
             password: hashedPassword, 
             createdAt: new Date(),
-            basketId
+            basketId,
         };
         await userCollection.insertOne(newUser);
 
@@ -72,11 +72,14 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
 
+        // Needs to be set to a JWT, THIS IS NOT FOR PRODUCTION
+        req.session.loggedIn = true;
+        req.session.user = user; 
 
         const token = jwt.sign({ _id: user._id }, JWT_SECRET, { expiresIn: '24h' });
-        // res.cookie('token', token, { httpOnly: true, sameSite: true });
+        res.cookie('token', token, { httpOnly: true, sameSite: true });
 
-
+        console.log('User session', req.session.user); // Need to remove
         res.status(200).json({ message: 'Logged in successfully', token });
     } catch (error) {
         console.error('Error:', error);
@@ -100,11 +103,11 @@ const verifyToken = (req, res, next) => {
 router.get('/basket', verifyToken, async (req, res) => {
     try {
 
-        // if (!req.session || !req.session.user) {
-        //     return res.status(401).json({ error: 'Unauthorized - User not logged in' });
-        // }
+        if (!req.session || !req.session.user) {
+            return res.status(401).json({ error: 'Unauthorized - User not logged in' });
+        }
 
-        const user = await userCollection.findOne({ _id: new ObjectId(req.user._id) });
+        const user = await userCollection.findOne({ _id: new ObjectId(req.session.user._id) });
         const basket = user.basket || [];
 
         const products = await productsCollection.find({ _id: { $in: basket.map(item => new ObjectId(item.productId)) } }).toArray();
