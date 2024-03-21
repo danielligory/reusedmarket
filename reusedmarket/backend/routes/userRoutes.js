@@ -1,9 +1,10 @@
+const { ObjectId } = require('mongodb');
 const express = require('express');
 const router = express.Router();
 const client = require('../db');
 const dbName = 'onlinestore';
 const bcrypt = require('bcrypt');
-const { ObjectID } = require('mongodb');
+
 const jwt = require('jsonwebtoken');
 
 const db = client.db(dbName);
@@ -106,10 +107,10 @@ router.get('/basket', verifyToken, async (req, res) => {
             return res.status(401).json({ error: 'Unauthorized - User not logged in' });
         }
 
-        const user = await userCollection.findOne({ _id: ObjectID(req.session.user._id) });
+        const user = await userCollection.findOne({ _id: new ObjectId(req.session.user._id) });
         const basket = user.basket || [];
 
-        const products = await productsCollection.find({ _id: { $in: basket.map(item => ObjectID(item.productId)) } }).toArray();
+        const products = await productsCollection.find({ _id: { $in: basket.map(item => new ObjectId(item.productId)) } }).toArray();
 
         const basketDetails = basket.map(item => {
             const product = products.find(p => p._id.toString() === item.productId);
@@ -141,7 +142,7 @@ router.post('/basket/add', verifyToken, async (req, res) => {
         }
 
         const result = await userCollection.updateOne(
-            { _id: ObjectID(userId) },
+            { _id: new ObjectId(userId) },
             { $addToSet: { basket: { productId, quantity } } }
         );
 
@@ -164,7 +165,7 @@ router.put('/basket/update', verifyToken, async (req, res) => {
     try {
         await userCollection.updateOne(
             {
-                _id: ObjectID(req.user._id),
+                _id: new ObjectId(req.user._id),
                 'basket.productId': productId,
             },
             { $set: { 'basket.$.quantity': quantity } }
@@ -182,7 +183,7 @@ router.delete('/basket/remove', verifyToken, async (req, res) => {
 
     try {
         await userCollection.updateOne(
-            { _id: ObjectID(req.user._id) },
+            { _id: new ObjectId(req.user._id) },
             { $pull: { basket: { productId } } }
         );
 
