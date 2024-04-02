@@ -41,7 +41,7 @@ router.post('/register', async (req,res) => {
             email, 
             password: hashedPassword, 
             createdAt: new Date(),
-            basketId
+            basket: []
         };
         await userCollection.insertOne(newUser);
 
@@ -123,31 +123,44 @@ router.get('/basket', verifyToken, async (req, res) => {
 router.post('/basket/add', verifyToken, async (req, res) => {
     try {
         const { productId, quantity } = req.body;
-
-        if (!productId || !quantity) {
-            return res.status(400).json({ error: 'Invalid input data' });
-        }
+        console.log(`Adding product to basket: productId=${productId}, quantity=${quantity}`);
 
         const userId = req.user._id;
-        if (!userId) {
-            return res.status(401).json({ error: 'User not authenticated' });
+
+        if (!ObjectId.isValid(productId) || quantity <= 0) {
+            return res.status(400).json({ message: 'Invalid product ID or quantity' });
         }
 
-        const result = await userCollection.updateOne(
-            { _id: new ObjectId(userId) },
-            { $addToSet: { basket: { productId, quantity } } }
-        );
+        const user = await userCollection.findOne({ _id: new ObjectId(userId) });
+        console.log(`User before update: ${JSON.stringify(user)}`);
 
-        if (result.modifiedCount === 1) {
-            return res.status(200).json({ message: 'Product added to basket successfully' });
+        const basket = user.basket || [];
+
+        const productIndex = basket.findIndex(item => item.productId === productId);
+
+        if (productIndex !== -1) {
+            basket[productIndex].quantity += quantity;
         } else {
-            return res.status(404).json({ error: 'User not found or product not added' });
+            basket.push({ productId: new ObjectId(productId), quantity });
         }
+
+        await userCollection.updateOne({ _id: new ObjectId(userId) }, { $set: { basket } });
+
+        console.log(`User after update: ${JSON.stringify(await userCollection.findOne({ _id: new ObjectId(userId) }))}`);
+        
+        res.status(200).json({ message: 'Product added to basket successfully' });
     } catch (error) {
-        console.error('Error updating basket in the database:', error);
-        res.status(500).json({ error: 'Internal server error', details: error.message });
+        console.error('Error adding product to basket:', error);
+        res.status(500).json({ message: 'Error adding product to basket', error: error.message });
     }
 });
+
+
+
+
+
+
+
 
 
 

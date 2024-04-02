@@ -9,7 +9,7 @@ router.put('/:productId/updateQuantity', async (req, res) => {
     try {
         const dbClient = await db;
 
-        const dbInstance = dbClient.db('your_database_name');
+        const dbInstance = dbClient.db('onlinestore');
         const productsCollection = dbInstance.collection('products');
 
 
