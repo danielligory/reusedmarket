@@ -98,14 +98,24 @@ const verifyToken = (req, res, next) => {
 
 router.get('/basket', verifyToken, async (req, res) => {
     try {
-
         const user = await userCollection.findOne({ _id: new ObjectId(req.user._id) });
-        const basket = user.basket || [];
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
-        const products = await productsCollection.find({ _id: { $in: basket.map(item => new ObjectId(item.productId)) } }).toArray();
+        const basket = user.basket || [];
+        const productIds = basket.map(item => new ObjectId(item.productId));
+
+        const productsCollection = db.collection('products');
+
+        const products = await productsCollection.find({ _id: { $in: productIds } }).toArray();
+        
+        if (!products) {
+            return res.status(404).json({ message: 'Products not found' });
+        }
 
         const basketDetails = basket.map(item => {
-            const product = products.find(p => p._id.toString() === item.productId);
+            const product = products.find(p => p._id.equals(item.productId));
             return {
                 ...item,
                 product,
@@ -118,6 +128,7 @@ router.get('/basket', verifyToken, async (req, res) => {
         res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
+
 
 
 router.post('/basket/add', verifyToken, async (req, res) => {
