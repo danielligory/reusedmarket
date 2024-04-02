@@ -41,8 +41,9 @@ const Basket = () => {
 
     const handleRemoveProduct = async (productId) => {
         try {
-            await axios.delete(`http://localhost:5001/users/basket/remove/${productId}`, 
+            await axios.delete('http://localhost:5001/users/basket/remove', 
                 {
+                    data: { productId },
                     headers: {
                         Authorization: `Bearer ${localStorage.getItem('token')}`,
                     },
@@ -53,15 +54,16 @@ const Basket = () => {
             console.error('Error removing product:', error);
         }
     };
+    
 
     return (
         <div>
             <h2>Your Basket</h2>
-            {basket.map(item => (
-                <div key={item.productId}>
+            {basket.map((item, index) => (
+                <div key={`${item.productId}_${index}`}>
                     <p>{item.product.name} - Quantity: {item.quantity}</p>
-                    <button onClick={() => handleUpdateQuantity(item.productId, item.quantity + 1)}>+</button>
-                    <button onClick={() => handleUpdateQuantity(item.productId, item.quantity - 1)}>-</button>
+                    <button onClick={() => handleUpdateQuantity(item.productId, Math.max(item.quantity + 1, 1))}>+</button>
+                    <button onClick={() => handleUpdateQuantity(item.productId, Math.max(item.quantity - 1, 1))}>-</button>
                     <button onClick={() => handleRemoveProduct(item.productId)}>Remove</button>
                 </div>
             ))}

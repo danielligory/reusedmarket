@@ -98,14 +98,24 @@ const verifyToken = (req, res, next) => {
 
 router.get('/basket', verifyToken, async (req, res) => {
     try {
-
         const user = await userCollection.findOne({ _id: new ObjectId(req.user._id) });
-        const basket = user.basket || [];
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
 
-        const products = await productsCollection.find({ _id: { $in: basket.map(item => new ObjectId(item.productId)) } }).toArray();
+        const basket = user.basket || [];
+        const productIds = basket.map(item => new ObjectId(item.productId));
+
+        const productsCollection = db.collection('products');
+
+        const products = await productsCollection.find({ _id: { $in: productIds } }).toArray();
+        
+        if (!products) {
+            return res.status(404).json({ message: 'Products not found' });
+        }
 
         const basketDetails = basket.map(item => {
-            const product = products.find(p => p._id.toString() === item.productId);
+            const product = products.find(p => p._id.equals(item.productId));
             return {
                 ...item,
                 product,
@@ -118,6 +128,7 @@ router.get('/basket', verifyToken, async (req, res) => {
         res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
+
 
 
 router.post('/basket/add', verifyToken, async (req, res) => {
@@ -157,46 +168,53 @@ router.post('/basket/add', verifyToken, async (req, res) => {
 
 
 
-
-
-
-
-
-
-
 router.put('/basket/update', verifyToken, async (req, res) => {
     const { productId, quantity } = req.body;
+    console.log(`Updating product quantity in basket: productId=${productId}, quantity=${quantity}`);
 
     try {
-        await userCollection.updateOne(
+        const result = await userCollection.updateOne(
             {
                 _id: new ObjectId(req.user._id),
-                'basket.productId': productId,
+                'basket.productId': new ObjectId(productId),
             },
             { $set: { 'basket.$.quantity': quantity } }
         );
 
+        if (result.modifiedCount === 0) {
+            return res.status(404).json({ message: 'Product not found in basket or no update needed' });
+        }
+
+        console.log(`Basket updated successfully: ${result}`);
         res.json({ message: 'Basket updated successfully' });
     } catch (error) {
         console.error('Error updating product in basket:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
+
 
 router.delete('/basket/remove', verifyToken, async (req, res) => {
     const { productId } = req.body;
+    console.log(`Removing product from basket: productId=${productId}`);
 
     try {
-        await userCollection.updateOne(
+        const result = await userCollection.updateOne(
             { _id: new ObjectId(req.user._id) },
-            { $pull: { basket: { productId } } }
+            { $pull: { basket: { productId: new ObjectId(productId) } } }
         );
 
+        if (result.modifiedCount === 0) {
+            return res.status(404).json({ message: 'Product not found in basket' });
+        }
+
+        console.log(`Product removed from basket: ${result}`);
         res.json({ message: 'Product removed from basket' });
     } catch (error) {
         console.error('Error removing product from basket:', error);
-        res.status(500).json({ error: 'Internal server error' });
+        res.status(500).json({ error: 'Internal server error', details: error.message });
     }
 });
+
 
 module.exports = router ;
