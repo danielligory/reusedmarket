@@ -19,6 +19,11 @@ const Basket = () => {
         }
     };
 
+    const calculateTotal = () => {
+        return basket.reduce((total, item) => total + item.quantity * item.product.price, 0);
+
+    };
+
     useEffect(() => {
         fetchBasket();
     }, []);
@@ -67,6 +72,7 @@ const Basket = () => {
                     <button onClick={() => handleRemoveProduct(item.productId)}>Remove</button>
                 </div>
             ))}
+            <h3>Total Amount: ${calculateTotal().toFixed(2)}</h3>
         </div>
     );
 };
