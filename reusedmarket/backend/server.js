@@ -6,6 +6,8 @@ const cors = require('cors');
 
 const userRoutes = require('./routes/userRoutes');
 
+const paymentRoutes = require('./routes/paymentRoutes');
+
 const corsOptions = {
   origin: '*',
   credentials: true,
@@ -46,6 +48,16 @@ server.get('/products', async (req, res) => {
 });
 
 server.use('/users', userRoutes);
+
+server.use('/payments', paymentRoutes);
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught Exception:', error);
+});
+
+process.on('unhandledRejection', (error) => {
+  console.error('Unhandled Rejection:', error);
+});
 
 const port = process.env.PORT || 5001;
 server.listen(port, () => {

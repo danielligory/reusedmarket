@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../path/to/your/db.js'); 
+const db = require('../db'); 
 
 router.put('/:productId/updateQuantity', async (req, res) => {
     const { productId } = req.params;

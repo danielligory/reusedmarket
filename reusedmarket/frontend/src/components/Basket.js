@@ -1,9 +1,7 @@
-// Basket.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Basket = () => {
+const Basket = ({ setTotalAmount }) => {
     const [basket, setBasket] = useState([]);
 
     const fetchBasket = async () => {
@@ -42,6 +40,11 @@ const Basket = () => {
         } catch (error) {
             console.error('Error updating quantity:', error);
         }
+    };
+
+    const updateTotalAmount = () => {
+        const newTotal = calculateTotal();
+        setTotalAmount(newTotal);
     };
 
     const handleRemoveProduct = async (productId) => {
