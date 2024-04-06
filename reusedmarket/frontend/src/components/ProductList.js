@@ -2,7 +2,6 @@
 import '../styles/ProductCards.css';
 import ProductCard from './ProductCard';
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 
 const ProductList = ({ title }) => {
   const [products, setProducts] = useState([]);
@@ -11,10 +10,11 @@ const ProductList = ({ title }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5001/products');
-        const result = response.data;
+        const response = await fetch('http://localhost:5001/products');
+        const result = await response.json();
 
         const filteredProducts = result.filter(product => product.category.includes(title));
+
         const searchedProducts = filteredProducts.filter(product =>
           product.name.toLowerCase().includes(searchQuery.toLowerCase())
         );

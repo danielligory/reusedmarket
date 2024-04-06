@@ -26,6 +26,10 @@ const Basket = ({ setTotalAmount }) => {
         fetchBasket();
     }, []);
 
+    useEffect(() => {
+        updateTotalAmount();
+    }, [basket]);
+
     const handleUpdateQuantity = async (productId, newQuantity) => {
         try {
             await axios.put('http://localhost:5001/users/basket/update', 

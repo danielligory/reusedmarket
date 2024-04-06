@@ -9,8 +9,6 @@ const BasketPage = () => {
     const [totalAmount, setTotalAmount] = useState(0);
 
     const handleCheckout = () => {
-        // set the total amount to what the value of the basket actually is
-        setTotalAmount(100);
         setIsPaying(true);
     };
 
