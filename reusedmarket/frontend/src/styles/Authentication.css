@@ -1,31 +1,29 @@
-
 form {
   display: flex;
   flex-direction: column;
   max-width: 300px;
-  margin: 0 auto;
-}
-
-input[type='text'],
-input[type='email'],
-input[type='password'] {
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
+  margin: 2em auto;
+  padding: 1em;
+  border: 1px solid #bdc3c7;
   border-radius: 5px;
-  font-size: 16px;
 }
 
-button[type='submit'] {
-  padding: 10px 20px;
+input {
+  margin-bottom: 1em;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 1px solid #bdc3c7;
+}
+
+button {
+  background-color: #27ae60;
+  color: white;
+  padding: 0.5em;
   border: none;
   border-radius: 5px;
-  background-color: #007bff;
-  color: white;
-  font-size: 16px;
   cursor: pointer;
 }
 
-button[type='submit']:hover {
-  background-color: #0056b3;
+button:hover {
+  background-color: #2ecc71;
 }

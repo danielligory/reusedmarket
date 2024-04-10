@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Basket from '../components/Basket';
 import PaymentForm from '../pages/PaymentForm';
+import '../styles/Basket.css';
 
 
 

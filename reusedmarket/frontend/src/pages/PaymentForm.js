@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import '../styles/Basket.css';
 
 const CARD_OPTIONS = {
   iconStyle: 'solid',

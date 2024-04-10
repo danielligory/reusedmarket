@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/App.css';
+import '../styles/Navbar.css';
 import { Link } from 'react-router-dom';
 
 function NavBar({ serverBaseUrl }) {
@@ -31,13 +31,6 @@ function NavBar({ serverBaseUrl }) {
               <Link to='/about'>About us</Link>
             </li>
           </ul>
-        </div>
-        <div className='search-bar'>
-          <input
-              type='text'
-              placeholder='Search'
-            />
-          <button>Search</button>
         </div>
         <div className='user-actions'>
           <Link to='/login'>
