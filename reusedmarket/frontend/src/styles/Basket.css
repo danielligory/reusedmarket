@@ -1,0 +1,16 @@
+.basket-page-container {
+  margin-top: 4em;
+  padding: 1em;
+}
+
+.payment-form {
+  margin-top: 1em;
+  border: 1px solid #bdc3c7;
+  padding: 1em;
+  border-radius: 5px;
+}
+
+.error {
+  color: #e74c3c;
+  margin: 0.5em 0;
+}

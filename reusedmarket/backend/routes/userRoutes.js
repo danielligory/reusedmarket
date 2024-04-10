@@ -41,6 +41,7 @@ router.post('/register', async (req,res) => {
             email, 
             password: hashedPassword, 
             createdAt: new Date(),
+            basketId: basketId,
             basket: []
         };
         await userCollection.insertOne(newUser);

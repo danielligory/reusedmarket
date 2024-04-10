@@ -1,13 +1,14 @@
 import React from 'react';
-import '../styles/App.css';
+import '../styles/Navbar.css';
 import { Link } from 'react-router-dom';
 
-function NavBar() {
+function NavBar({ serverBaseUrl }) {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     window.location.href = '/';
   };
+
 
   return (
     <nav>
@@ -30,9 +31,6 @@ function NavBar() {
               <Link to='/about'>About us</Link>
             </li>
           </ul>
-        </div>
-        <div className='search-bar'>
-          <input type='text' placeholder ='Search'/>
         </div>
         <div className='user-actions'>
           <Link to='/login'>

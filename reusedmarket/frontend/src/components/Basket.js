@@ -1,9 +1,7 @@
-// Basket.js
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const Basket = () => {
+const Basket = ({ setTotalAmount }) => {
     const [basket, setBasket] = useState([]);
 
     const fetchBasket = async () => {
@@ -19,9 +17,18 @@ const Basket = () => {
         }
     };
 
+    const calculateTotal = () => {
+        return basket.reduce((total, item) => total + item.quantity * item.product.price, 0);
+
+    };
+
     useEffect(() => {
         fetchBasket();
     }, []);
+
+    useEffect(() => {
+        updateTotalAmount();
+    }, [basket]);
 
     const handleUpdateQuantity = async (productId, newQuantity) => {
         try {
@@ -37,6 +44,11 @@ const Basket = () => {
         } catch (error) {
             console.error('Error updating quantity:', error);
         }
+    };
+
+    const updateTotalAmount = () => {
+        const newTotal = calculateTotal();
+        setTotalAmount(newTotal);
     };
 
     const handleRemoveProduct = async (productId) => {
@@ -67,6 +79,7 @@ const Basket = () => {
                     <button onClick={() => handleRemoveProduct(item.productId)}>Remove</button>
                 </div>
             ))}
+            <h3>Total Amount: ${calculateTotal().toFixed(2)}</h3>
         </div>
     );
 };
