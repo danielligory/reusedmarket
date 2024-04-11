@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import '../styles/Basket.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const CARD_OPTIONS = {
   iconStyle: 'solid',
@@ -12,6 +14,7 @@ const PaymentForm = ({ totalAmount }) => {
   const elements = useElements();
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -40,7 +43,7 @@ const PaymentForm = ({ totalAmount }) => {
         body: JSON.stringify({ 
           amount: totalAmount * 100,
           currency: 'gbp',
-          receipt_email: 'test@email.com', // Make so it uses the user that is logged in email address
+          receipt_email: 'test@email.com',
           paymentMethodId: paymentMethod.id,
         }),
       });
@@ -58,11 +61,13 @@ const PaymentForm = ({ totalAmount }) => {
       });
 
       if (result.error) {
-        // Add an alert box so the user knows that there was an error
+        alert(result.error.message);
         setError(result.error.message);
       } else {
         if (result.paymentIntent.status === 'succeeded') {
           console.log('Payment succeeded:', result.paymentIntent);
+          navigate('/');
+          alert('Payment successful! Thank you for your purchase.');
           // need to handle in the database when they payment is successful. So add an order with referece, how much was paid, the users id, etc..
           // need to also clear the basket
         }
