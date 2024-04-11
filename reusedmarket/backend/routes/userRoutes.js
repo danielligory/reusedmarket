@@ -12,16 +12,19 @@ const db = client.db(dbName);
 // Define the User Schema
 const userCollection = db.collection('users');
 
+// Creating an index on the email field to ensure uniqueness.
 (async () => {
     await userCollection.createIndex({ email: 1 }, { unique: true});
 })();
 
+// Function to generate a unique ID for a user's basket.
 function generateUniqueBasketId() {
     return 'BASKET_' + Math.random().toString(36).substring(2, 9);
 }
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
+// Route for user registration.
 router.post('/register', async (req,res) => {
     try {
         const { username, email, password } = req.body;
@@ -35,7 +38,7 @@ router.post('/register', async (req,res) => {
 
         const basketId = generateUniqueBasketId();
         
-        // Create new user
+        // Creating new user object.
         const newUser = { 
             username, 
             email, 
@@ -46,6 +49,7 @@ router.post('/register', async (req,res) => {
         };
         await userCollection.insertOne(newUser);
 
+        // Creating JWT token.
         const token = jwt.sign({ _id: newUser._id }, JWT_SECRET, { expiresIn: '24h' });
         res.cookie('token', token, { httpOnly: true, sameSite: true });
 
@@ -56,7 +60,7 @@ router.post('/register', async (req,res) => {
 });
 
 
-
+// Route for user login.
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -84,6 +88,7 @@ router.post('/login', async (req, res) => {
     }
 });
 
+// Middleware for verifying the JWT token.
 const verifyToken = (req, res, next) => {
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
@@ -96,7 +101,7 @@ const verifyToken = (req, res, next) => {
     });
 };
 
-
+// Route to get a user's basket.
 router.get('/basket', verifyToken, async (req, res) => {
     try {
         const user = await userCollection.findOne({ _id: new ObjectId(req.user._id) });
@@ -130,8 +135,7 @@ router.get('/basket', verifyToken, async (req, res) => {
     }
 });
 
-
-
+// Route to add a product to a user's basket.
 router.post('/basket/add', verifyToken, async (req, res) => {
     try {
         const { productId, quantity } = req.body;
@@ -168,7 +172,7 @@ router.post('/basket/add', verifyToken, async (req, res) => {
 });
 
 
-
+// Route to update the quantity of a product in a user's basket.
 router.put('/basket/update', verifyToken, async (req, res) => {
     const { productId, quantity } = req.body;
     console.log(`Updating product quantity in basket: productId=${productId}, quantity=${quantity}`);
@@ -194,7 +198,7 @@ router.put('/basket/update', verifyToken, async (req, res) => {
     }
 });
 
-
+// Route to remove a product from a user's basket.
 router.delete('/basket/remove', verifyToken, async (req, res) => {
     const { productId } = req.body;
     console.log(`Removing product from basket: productId=${productId}`);

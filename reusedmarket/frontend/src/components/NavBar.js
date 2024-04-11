@@ -2,14 +2,16 @@ import React from 'react';
 import '../styles/Navbar.css';
 import { Link } from 'react-router-dom';
 
+// Functional component NavBar with a prop serverBaseUrl.
 function NavBar({ serverBaseUrl }) {
 
+  // Function to handle user logout.
   const handleLogout = () => {
     localStorage.removeItem('token');
     window.location.href = '/';
   };
 
-
+  // JSX for rendering the navigation bar.
   return (
     <nav>
       <div className ='navbar-container'>

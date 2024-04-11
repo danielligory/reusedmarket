@@ -3,12 +3,13 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import '../styles/Basket.css';
 import { useNavigate } from 'react-router-dom';
 
-
+// Options for the card element style.
 const CARD_OPTIONS = {
   iconStyle: 'solid',
   hidePostalCode: true,
 };
 
+// PaymentForm component for handling payments.
 const PaymentForm = ({ totalAmount }) => {
   const stripe = useStripe();
   const elements = useElements();
@@ -16,6 +17,7 @@ const PaymentForm = ({ totalAmount }) => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
+  // Function to handle form submission.
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!stripe || !elements) {
@@ -25,6 +27,7 @@ const PaymentForm = ({ totalAmount }) => {
     setError(null);
     setLoading(true);
 
+    // Getting the CardElement and creating a payment method.
     const cardElement = elements.getElement(CardElement);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: 'card',
@@ -37,6 +40,7 @@ const PaymentForm = ({ totalAmount }) => {
         return;
       }
 
+      // Creating payment intent on the server.
       const response = await fetch('http://localhost:5001/payments/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -56,6 +60,7 @@ const PaymentForm = ({ totalAmount }) => {
 
       const { clientSecret } = await response.json();
 
+      // Confirming the card payment with Stripe.
       const result = await stripe.confirmCardPayment(clientSecret, {
         payment_method: paymentMethod.id,
       });
@@ -68,13 +73,13 @@ const PaymentForm = ({ totalAmount }) => {
           console.log('Payment succeeded:', result.paymentIntent);
           navigate('/');
           alert('Payment successful! Thank you for your purchase.');
-          // need to handle in the database when they payment is successful. So add an order with referece, how much was paid, the users id, etc..
-          // need to also clear the basket
+          // Future task: Handle successful payment in the database and clear the basket.
         }
       }
     setLoading(false);
   };
 
+  // Rendering the payment form.
   return (
     <form onSubmit={handleSubmit}>
       <CardElement options={CARD_OPTIONS}/>

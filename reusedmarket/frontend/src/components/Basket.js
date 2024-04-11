@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+// The Basket component, used to display and manage the user's shopping basket.
 const Basket = ({ setTotalAmount }) => {
     const [basket, setBasket] = useState([]);
 
+    // Function to fetch basket items from the server.
     const fetchBasket = async () => {
         try {
             const response = await axios.get('http://localhost:5001/users/basket', {
@@ -17,19 +19,23 @@ const Basket = ({ setTotalAmount }) => {
         }
     };
 
+     // Function to calculate the total amount of items in the basket.
     const calculateTotal = () => {
         return basket.reduce((total, item) => total + item.quantity * item.product.price, 0);
 
     };
 
+    // useEffect hook to fetch basket data when the component mounts.
     useEffect(() => {
         fetchBasket();
     }, []);
 
+    // useEffect hook to update the total amount whenever the basket changes.
     useEffect(() => {
         updateTotalAmount();
     }, [basket]);
 
+    // Function to handle quantity updates for a specific product in the basket.
     const handleUpdateQuantity = async (productId, newQuantity) => {
         try {
             await axios.put('http://localhost:5001/users/basket/update', 
@@ -46,11 +52,13 @@ const Basket = ({ setTotalAmount }) => {
         }
     };
 
+    // Function to update the total amount.
     const updateTotalAmount = () => {
         const newTotal = calculateTotal();
         setTotalAmount(newTotal);
     };
 
+    // Function to handle the removal of a product from the basket.
     const handleRemoveProduct = async (productId) => {
         try {
             await axios.delete('http://localhost:5001/users/basket/remove', 
@@ -67,7 +75,7 @@ const Basket = ({ setTotalAmount }) => {
         }
     };
     
-
+    // Render the Basket component.
     return (
         <div>
             <h2>Your Basket</h2>

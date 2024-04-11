@@ -2,16 +2,19 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Authentication.css';
 
+// UserLogin component for handling user login functionality.
 const UserLogin = () => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
     });
 
+    // Function to handle changes in form inputs.
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value});
     };
 
+    // Function to handle form submission.
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -25,6 +28,7 @@ const UserLogin = () => {
         }
     };
 
+    // Rendering the login form.
     return (
         <form onSubmit={handleSubmit}>
             <p>Login Page</p>

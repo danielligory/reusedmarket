@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
+// The ProductCard component represents a single product.
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(product.quantity);
 
+  // Function to handle quantity changes.
   const handleQuantityChange = (change) => {
     const newQuantity = Math.max(0, quantity + change);
     setQuantity(newQuantity);
   };
 
+  // Function to add the product to the user's basket.
   const addToBasket = async () => {
     try {
         const response = await axios.post('http://localhost:5001/users/basket/add', {
@@ -43,6 +46,8 @@ const ProductCard = ({ product }) => {
 
     }
 };
+
+  // Rendering the product card.
   return (
     <div className='product-card'>
       {/* <img src={product.imageURL} alt={product.name} /> */}

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import '../styles/Authentication.css';
 
+// UserRegistration component for handling user registration.
 const UserRegistration = () => {
     const [formData, setFormData] = useState({
         username: '',
@@ -9,11 +10,12 @@ const UserRegistration = () => {
         password: '',
     });
 
-
+    // Function to update formData state when form fields change.
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    // Function to handle form submission.
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -28,6 +30,7 @@ const UserRegistration = () => {
         }
     };
 
+    // Rendering the registration form.
     return (
         <form onSubmit={handleSubmit}>
             <p>Registration Page</p>

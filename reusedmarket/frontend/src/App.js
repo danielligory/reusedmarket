@@ -9,12 +9,14 @@ import UserLogin from './pages/UserLogin';
 import BasketPage from './pages/BasketPage';
 import AboutUs from './pages/AboutUs';
 
-
+// Initializing Stripe with a public key.
 const stripePromise = loadStripe("pk_test_51P19SCDVOShfpLfUGwR1hg8dqe4BCm3TvkbpXY5q9oH4UBjN30kAuBfhdUAeAA2fWMB6ls38uwwcFBluzH1tEVky002e0RXwp9");
 
 function App() {
+  // Base URL for the server.
   const serverBaseUrl = 'http://localhost:5001';
 
+  // Main App component rendering the routing structure and NavBar.
   return (
     <Elements stripe={stripePromise}>
       <Router>
@@ -38,6 +40,7 @@ function App() {
   );
 }
 
+// HomePage component to display on the root route.
 const HomePage = () => {
   return (
     <div>
