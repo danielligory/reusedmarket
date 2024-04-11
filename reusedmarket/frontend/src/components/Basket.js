@@ -87,7 +87,7 @@ const Basket = ({ setTotalAmount }) => {
                     <button onClick={() => handleRemoveProduct(item.productId)}>Remove</button>
                 </div>
             ))}
-            <h3>Total Amount: ${calculateTotal().toFixed(2)}</h3>
+            <h3>Total Amount: £{calculateTotal().toFixed(2)}</h3>
         </div>
     );
 };

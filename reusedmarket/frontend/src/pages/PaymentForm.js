@@ -85,7 +85,7 @@ const PaymentForm = ({ totalAmount }) => {
       <CardElement options={CARD_OPTIONS} />
       {error && <div className="error">{error}</div>}
       <button type="submit" disabled={!stripe || loading}>
-        {loading ? 'Processing…' : `Pay $${(totalAmount).toFixed(2)}`}
+        {loading ? 'Processing…' : `Pay £${(totalAmount).toFixed(2)}`}
       </button>
     </form>
   );
