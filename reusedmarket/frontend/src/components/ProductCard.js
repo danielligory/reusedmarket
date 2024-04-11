@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import SmartTv from '../assets/productIcons/smart-tv.jpg';
 import axios from 'axios';
 
 const ProductCard = ({ product }) => {
@@ -47,7 +46,8 @@ const ProductCard = ({ product }) => {
   return (
     <div className='product-card'>
       {/* <img src={product.imageURL} alt={product.name} /> */}
-      <img className='product-image' src={SmartTv} alt={product.name} />
+      <img className='product-image' src={`http://localhost:3000/media/${product.imageURL}`} alt={product.name} />
+      {/* <img className='product-image' src={SmartTv} alt={product.name} /> */}
       <h2 className='product-name'>{product.name}</h2>
       <p className='product-description'>{product.description}</p>
       <p className='product-price'>£{product.price}</p>

@@ -22,7 +22,8 @@ function App() {
           <Routes>
             <Route exact path="/" element={<HomePage serverBaseUrl={serverBaseUrl} />} />
             <Route exact path="/gaming" element={<ProductList title="Gaming" serverBaseUrl={serverBaseUrl} />} />
-            <Route exact path="/electronics" element={<ProductList title="Electronics" serverBaseUrl={serverBaseUrl} />} />
+            <Route exact path="/electronics" element={<ProductList title="Electronic" serverBaseUrl={serverBaseUrl} />} />
+            <Route exact path="/phone" element={<ProductList title="Phone" serverBaseUrl={serverBaseUrl} />} />
             <Route path="/register" element={<UserRegistration />} />
             <Route path="/login" element={<UserLogin />} />
             <Route path="/basket" element={<BasketPage />} />
