@@ -19,7 +19,7 @@ const Basket = ({ setTotalAmount }) => {
         }
     };
 
-     // Function to calculate the total amount of items in the basket.
+    // Function to calculate the total amount of items in the basket.
     const calculateTotal = () => {
         return basket.reduce((total, item) => total + item.quantity * item.product.price, 0);
 
@@ -38,13 +38,13 @@ const Basket = ({ setTotalAmount }) => {
     // Function to handle quantity updates for a specific product in the basket.
     const handleUpdateQuantity = async (productId, newQuantity) => {
         try {
-            await axios.put('http://localhost:5001/users/basket/update', 
-            { productId, quantity: newQuantity },
-            {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`,
-                },
-            }
+            await axios.put('http://localhost:5001/users/basket/update',
+                { productId, quantity: newQuantity },
+                {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('token')}`,
+                    },
+                }
             );
             fetchBasket();
         } catch (error) {
@@ -61,7 +61,7 @@ const Basket = ({ setTotalAmount }) => {
     // Function to handle the removal of a product from the basket.
     const handleRemoveProduct = async (productId) => {
         try {
-            await axios.delete('http://localhost:5001/users/basket/remove', 
+            await axios.delete('http://localhost:5001/users/basket/remove',
                 {
                     data: { productId },
                     headers: {
@@ -74,7 +74,7 @@ const Basket = ({ setTotalAmount }) => {
             console.error('Error removing product:', error);
         }
     };
-    
+
     // Render the Basket component.
     return (
         <div>

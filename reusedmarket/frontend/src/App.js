@@ -21,7 +21,7 @@ function App() {
     <Elements stripe={stripePromise}>
       <Router>
         <div className="App">
-          <NavBar serverBaseUrl={serverBaseUrl}/>
+          <NavBar serverBaseUrl={serverBaseUrl} />
           <Routes>
             <Route exact path="/" element={<HomePage serverBaseUrl={serverBaseUrl} />} />
             <Route exact path="/about" element={<AboutUs />} />
@@ -35,7 +35,7 @@ function App() {
         </div>
       </Router>
     </Elements>
-    
+
 
   );
 }

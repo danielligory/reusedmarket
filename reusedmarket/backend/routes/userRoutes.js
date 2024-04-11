@@ -14,7 +14,7 @@ const userCollection = db.collection('users');
 
 // Creating an index on the email field to ensure uniqueness.
 (async () => {
-    await userCollection.createIndex({ email: 1 }, { unique: true});
+    await userCollection.createIndex({ email: 1 }, { unique: true });
 })();
 
 // Function to generate a unique ID for a user's basket.
@@ -25,24 +25,24 @@ function generateUniqueBasketId() {
 const JWT_SECRET = process.env.JWT_SECRET;
 
 // Route for user registration.
-router.post('/register', async (req,res) => {
+router.post('/register', async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
         // Check if user already exists
         const existingUser = await userCollection.findOne({ email });
         if (existingUser) {
-            return res.status(400).json({ message: 'User already exists'});
+            return res.status(400).json({ message: 'User already exists' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
 
         const basketId = generateUniqueBasketId();
-        
+
         // Creating new user object.
-        const newUser = { 
-            username, 
-            email, 
-            password: hashedPassword, 
+        const newUser = {
+            username,
+            email,
+            password: hashedPassword,
             createdAt: new Date(),
             basketId: basketId,
             basket: []
@@ -53,9 +53,9 @@ router.post('/register', async (req,res) => {
         const token = jwt.sign({ _id: newUser._id }, JWT_SECRET, { expiresIn: '24h' });
         res.cookie('token', token, { httpOnly: true, sameSite: true });
 
-        res.status(201).json({message: 'User registered successfully', token });
+        res.status(201).json({ message: 'User registered successfully', token });
     } catch (error) {
-        res.status(500).json({ message: 'Registration failed'});
+        res.status(500).json({ message: 'Registration failed' });
     }
 });
 
@@ -72,7 +72,7 @@ router.post('/login', async (req, res) => {
         }
 
         const passwordMatch = await bcrypt.compare(password, user.password);
-        
+
         if (!passwordMatch) {
             return res.status(401).json({ message: 'Invalid email or password' });
         }
@@ -115,7 +115,7 @@ router.get('/basket', verifyToken, async (req, res) => {
         const productsCollection = db.collection('products');
 
         const products = await productsCollection.find({ _id: { $in: productIds } }).toArray();
-        
+
         if (!products) {
             return res.status(404).json({ message: 'Products not found' });
         }
@@ -163,7 +163,7 @@ router.post('/basket/add', verifyToken, async (req, res) => {
         await userCollection.updateOne({ _id: new ObjectId(userId) }, { $set: { basket } });
 
         console.log(`User after update: ${JSON.stringify(await userCollection.findOne({ _id: new ObjectId(userId) }))}`);
-        
+
         res.status(200).json({ message: 'Product added to basket successfully' });
     } catch (error) {
         console.error('Error adding product to basket:', error);
@@ -222,4 +222,4 @@ router.delete('/basket/remove', verifyToken, async (req, res) => {
 });
 
 
-module.exports = router ;
+module.exports = router;

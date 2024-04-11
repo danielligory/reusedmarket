@@ -14,21 +14,21 @@ const ProductCard = ({ product }) => {
   // Function to add the product to the user's basket.
   const addToBasket = async () => {
     try {
-        const response = await axios.post('http://localhost:5001/users/basket/add', {
-            productId: product._id,
-            quantity,
-        }, {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
-        if (response.status === 200) {
-          console.log('Product added to basket successfully:',response.data);
-          window.alert('Product added to basket');
-        } else {
-          console.error('Response not succesful:', response.data);
-          window.alert('Response not succesful. Please try again.');
-        }
+      const response = await axios.post('http://localhost:5001/users/basket/add', {
+        productId: product._id,
+        quantity,
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      if (response.status === 200) {
+        console.log('Product added to basket successfully:', response.data);
+        window.alert('Product added to basket');
+      } else {
+        console.error('Response not succesful:', response.data);
+        window.alert('Response not succesful. Please try again.');
+      }
 
     } catch (error) {
       if (error.response) {
@@ -40,12 +40,12 @@ const ProductCard = ({ product }) => {
         console.error('Error request:', error.request);
         window.alert('No response, check network connection.');
       } else {
-        console.error ('Error message:', error.message);
+        console.error('Error message:', error.message);
         window.alert('Error setting up request. Please try again');
       }
 
     }
-};
+  };
 
   // Rendering the product card.
   return (

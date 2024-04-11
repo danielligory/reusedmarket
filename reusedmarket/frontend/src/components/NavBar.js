@@ -14,8 +14,8 @@ function NavBar({ serverBaseUrl }) {
   // JSX for rendering the navigation bar.
   return (
     <nav>
-      <div className ='navbar-container'>
-        <div className = 'logo'>
+      <div className='navbar-container'>
+        <div className='logo'>
           <Link to='/'>ReUsedMarket</Link>
         </div>
         <div className='nav-links'>
@@ -44,7 +44,7 @@ function NavBar({ serverBaseUrl }) {
           <Link to='/basket'>
             <button type='button'>Basket</button>
           </Link>
-          <button onClick = {handleLogout}>Logout</button>
+          <button onClick={handleLogout}>Logout</button>
         </div>
       </div>
     </nav>

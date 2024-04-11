@@ -34,55 +34,55 @@ const PaymentForm = ({ totalAmount }) => {
       card: cardElement,
     });
 
-      if (error) {
-        setError(error.message);
-        setLoading(false);
-        return;
+    if (error) {
+      setError(error.message);
+      setLoading(false);
+      return;
+    }
+
+    // Creating payment intent on the server.
+    const response = await fetch('http://localhost:5001/payments/create-payment-intent', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        amount: totalAmount * 100,
+        currency: 'gbp',
+        receipt_email: 'test@email.com',
+        paymentMethodId: paymentMethod.id,
+      }),
+    });
+
+    if (!response.ok) {
+      setError(`Payment failed: ${response.statusText}`);
+      setLoading(false);
+      return;
+    }
+
+    const { clientSecret } = await response.json();
+
+    // Confirming the card payment with Stripe.
+    const result = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: paymentMethod.id,
+    });
+
+    if (result.error) {
+      alert(result.error.message);
+      setError(result.error.message);
+    } else {
+      if (result.paymentIntent.status === 'succeeded') {
+        console.log('Payment succeeded:', result.paymentIntent);
+        navigate('/');
+        alert('Payment successful! Thank you for your purchase.');
+        // Future task: Handle successful payment in the database and clear the basket.
       }
-
-      // Creating payment intent on the server.
-      const response = await fetch('http://localhost:5001/payments/create-payment-intent', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ 
-          amount: totalAmount * 100,
-          currency: 'gbp',
-          receipt_email: 'test@email.com',
-          paymentMethodId: paymentMethod.id,
-        }),
-      });
-
-      if (!response.ok) {
-        setError(`Payment failed: ${response.statusText}`);
-        setLoading(false);
-        return;
-      }
-
-      const { clientSecret } = await response.json();
-
-      // Confirming the card payment with Stripe.
-      const result = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: paymentMethod.id,
-      });
-
-      if (result.error) {
-        alert(result.error.message);
-        setError(result.error.message);
-      } else {
-        if (result.paymentIntent.status === 'succeeded') {
-          console.log('Payment succeeded:', result.paymentIntent);
-          navigate('/');
-          alert('Payment successful! Thank you for your purchase.');
-          // Future task: Handle successful payment in the database and clear the basket.
-        }
-      }
+    }
     setLoading(false);
   };
 
   // Rendering the payment form.
   return (
     <form onSubmit={handleSubmit}>
-      <CardElement options={CARD_OPTIONS}/>
+      <CardElement options={CARD_OPTIONS} />
       {error && <div className="error">{error}</div>}
       <button type="submit" disabled={!stripe || loading}>
         {loading ? 'Processing…' : `Pay $${(totalAmount).toFixed(2)}`}

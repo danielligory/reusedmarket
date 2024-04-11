@@ -13,11 +13,11 @@ const client = new MongoClient(dbURL);
 
 // Connecting to the MongoDB server.
 client.connect()
-.then(() => {
-  console.log('Connected to MongoDB');
-})
-.catch(error => {
-  console.error('MongoDB connection error: ', error);
-});
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch(error => {
+    console.error('MongoDB connection error: ', error);
+  });
 
 module.exports = client;
