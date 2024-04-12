@@ -7,14 +7,14 @@
   margin: 0;
 }
 
-.product-list::-webkit-scrollbar {
+/* .product-list::-webkit-scrollbar {
   display: none;
-}
+} */
 
-.product-list {
+/* .product-list {
   -ms-overflow-style: none;
   scrollbar-width: none; 
-}
+} */
 
 
 .product-card {

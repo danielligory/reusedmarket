@@ -46,7 +46,7 @@ const AboutUs = () => {
                 <h2>Future Enhancements</h2>
                 <p>
                     The roadmap for ReUsedMarket includes a series of functional upgrades to enhance the user experience.
-                    Planned enhancements encompass design refinements, performance optimization, and the implementation
+                    Planned enhancements encompass design refinements, performance optimisation, and the implementation
                     of the latest web technologies to keep the platform at the forefront of e-commerce innovation.
                 </p>
             </section>
