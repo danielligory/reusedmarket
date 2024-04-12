@@ -11,6 +11,8 @@ For each file that has an .env file:
  - proofOfConcept/backend/product-list
  - proofOfConcept/backend/user-authentication
 
+When making payment use the card number `4242 4242 4242 4242`. Expire Date `04/25`. CVC `242`. These are test credentials
+
 **Project Overview**
 
 This project aims to develop a full-stack web application known as ReUsedMarket, focusing on an online store platform where users can buy and sell items. It's designed using the MERN stack.
@@ -24,6 +26,8 @@ Usage Instructions:
 4. Run `npm i` in both directories to install the necessary dependencies.
 5. Start the backend server by navigating to the backend directory and running `node server.js`.
 7. Start the frontend by navigating to the frontend directory and running `npm start`.
+
+
 
 
 **Additional information about files**
